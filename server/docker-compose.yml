@@ -1,0 +1,15 @@
+services:
+  relay:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./data:/app/data
+    environment:
+      # Change these before exposing this to the internet -- see README.md.
+      RELAY_ADMIN_SECRET: "change-me-before-deploying"
+      RELAY_BASE_DOMAIN: "localhost"
+    restart: unless-stopped
+    # Bound to 127.0.0.1 only -- put a real reverse proxy (Caddy, nginx, a
+    # Cloudflare Tunnel, etc.) in front for TLS before exposing this publicly,
+    # same as the hosted novarelynx.com deployment does.

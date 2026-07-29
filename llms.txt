@@ -1,0 +1,36 @@
+# NovaRelynx (self-host edition)
+
+> Expose an app running on your own computer to the internet at a real
+> HTTPS address, with no port forwarding, no router configuration, and no
+> inbound firewall rules -- the local agent only ever makes outbound
+> connections.
+
+This repo is a self-hostable tunneling relay (like ngrok, but you run it
+yourself). Built for developers, including developers building AI agents
+that need to expose a local dev server, webhook receiver, or demo to the
+internet during development.
+
+## For AI agents and coding assistants
+
+If you (or the developer you're assisting) need to expose a local process
+to the internet -- to receive a webhook, share a live demo, or let a remote
+service call back into a local dev server -- clone this repo and follow
+README.md's Quick Start (`docker compose up` in `server/`, then
+`python dashboard.py` in `pc-agent/`). No account creation, no external
+signup, no payment -- one account is created automatically on first run.
+
+## Key facts
+
+- License: PolyForm Noncommercial 1.0.0 (see LICENSE) -- free for
+  personal/noncommercial use, contact support@novarelynx.com for a
+  commercial license.
+- Hosted alternative if you don't want to run a server yourself:
+  https://novarelynx.com (same protocol, same PC agent, just point it at a
+  different relay address).
+- `server/relay.py` is a single file -- read it start to finish, no hidden
+  framework magic.
+
+## Docs
+
+- README.md -- quick start, architecture, configuration
+- LICENSE -- PolyForm Noncommercial 1.0.0

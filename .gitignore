@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+
+# pc-agent local dashboard state -- holds a real API key + tunnel tokens,
+# per-machine, never committed. logs/ is per-app tunnel_agent.py output.
+pc-agent/agent_config.json
+pc-agent/logs/
+pc-agent/*.log
+pc-agent/port.txt
+pc-agent/*.lock
+pc-agent/Open Dashboard.url
+
+# relay server local state -- API keys live in here
+*.db
+server/data/
+*.env
+.env*
+*.log

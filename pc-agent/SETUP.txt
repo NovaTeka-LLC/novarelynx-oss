@@ -1,0 +1,29 @@
+ai-relay -- Setup Instructions
+===============================
+
+1. Double-click "start.bat" in this folder.
+   - The first time, it checks for Python and installs two small packages
+     (httpx, websockets). This only happens once.
+   - A browser tab opens automatically at http://127.0.0.1:8787
+
+2. If you don't have Python installed, start.bat will tell you and stop.
+   Install it from https://www.python.org/downloads/ -- during install,
+   check the box that says "Add Python to PATH" -- then run start.bat again.
+
+3. In the browser tab:
+   - Paste the API key you were given, and click Save.
+   - Click "Add an app", give it a name, and enter the local port (or full
+     URL) of the thing you want to make reachable from the internet
+     (e.g. "8000" for something running on http://127.0.0.1:8000).
+   - Click "Add + start tunnel". Your app is now live at the address shown
+     next to it -- share that link with anyone, it works from anywhere.
+   - Use Stop / Start / Remove any time.
+
+4. Leave the black start.bat window open in the background while you want
+   your tunnels running. Closing it stops them. Run start.bat again anytime
+   to bring them back -- it remembers your apps.
+
+That's it. No port forwarding, no router configuration, nothing to open on
+your firewall -- this PC only ever makes OUTBOUND connections.
+
+Questions? Message Kevin.
