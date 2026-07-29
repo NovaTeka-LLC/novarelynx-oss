@@ -48,6 +48,26 @@ public URL immediately.
 Windows: double-click `pc-agent/start.bat` instead of the `pip`/`python`
 lines above. Linux/macOS: run `pc-agent/linux/start.sh`.
 
+## Headless / scripted use (no browser)
+
+`dashboard.py` is a convenience UI, not a requirement -- everything it does
+is a plain HTTP call, and `tunnel_agent.py` runs standalone from the
+command line. This is the path for an AI agent (or any script) that needs
+to expose a local port without a human clicking through a browser:
+
+```
+# Register an app and get a tunnel token, no login page involved
+curl -X POST http://<relay-host>:8080/api/v1/my/apps \
+  -H "X-Api-Key: <your api key>" -H "Content-Type: application/json" \
+  -d '{"name": "my-app", "entry_path": "/"}'
+# -> {"tunnel_token": "...", "app_name": "my-app", ...}
+
+# Run the agent directly -- this is the whole client, no dashboard needed
+python tunnel_agent.py ws://<relay-host>:8080/api/v1/tunnel/ws <tunnel_token> http://127.0.0.1:<local-port>
+```
+
+The app is now live at `https://<your-subdomain>.<base-domain>/my-app/`.
+
 ## Architecture
 
 - **`server/relay.py`** -- a single-file FastAPI server. Routes HTTP requests

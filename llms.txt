@@ -19,6 +19,11 @@ README.md's Quick Start (`docker compose up` in `server/`, then
 `python dashboard.py` in `pc-agent/`). No account creation, no external
 signup, no payment -- one account is created automatically on first run.
 
+This can be done entirely headlessly, no browser required -- see
+"Headless / scripted use" in README.md: register an app with one `curl`
+call using the printed API key, then run `python tunnel_agent.py <ws-url>
+<tunnel_token> <local-url>` directly. That's the whole client.
+
 ## Key facts
 
 - License: PolyForm Noncommercial 1.0.0 (see LICENSE) -- free for
