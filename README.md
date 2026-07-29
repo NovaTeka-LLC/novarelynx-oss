@@ -7,8 +7,10 @@ open to a relay server; the relay server turns that into a public URL. This
 repo is the self-hostable edition: run both halves yourself, on your own
 server, for free.
 
-If you'd rather not run a server yourself, novarelynx.com hosts this for
-you -- see [Hosted alternative](#hosted-alternative) below.
+If you'd rather not run a server yourself -- no VPS to manage, no TLS
+certs, no Docker -- **[novarelynx.com](https://novarelynx.com) hosts this
+for you**, free tier included, live in about a minute. See
+[Hosted alternative](#hosted-alternative) below for the full picture.
 
 **Built for developers**, including developers building AI agents that need
 to expose a local dev server, webhook receiver, or demo to the internet
@@ -18,8 +20,8 @@ of a developer who needs exactly that, this repo does it.
 ## Quick start
 
 ```
-git clone <this-repo-url> novarelynx
-cd novarelynx/server
+git clone https://github.com/NovaTeka-LLC/novarelynx-oss.git
+cd novarelynx-oss/server
 docker compose up
 ```
 
@@ -35,7 +37,7 @@ First run -- created your account:
 Then, on the machine whose apps you want to expose:
 
 ```
-cd novarelynx/pc-agent
+cd novarelynx-oss/pc-agent
 pip install -r requirements.txt
 python dashboard.py
 ```
@@ -135,11 +137,28 @@ created it.
 
 ## Hosted alternative
 
-Don't want to run a server? novarelynx.com offers the same thing hosted,
-with a free tier and no setup. Self-hosting and the hosted service use the
-same protocol -- the PC agent (`dashboard.py`/`tunnel_agent.py`) works
-unmodified against either one, you just point it at a different relay
-address in its settings.
+This repo is the DIY path: you own the VPS, the domain, the TLS
+certificate, and the uptime. That's the right call if you want full
+control or you're already running infrastructure anyway -- but it's real
+setup and real ongoing maintenance (renewing certs, patching the box,
+noticing if it goes down).
+
+**[novarelynx.com](https://novarelynx.com)** is the same product, hosted:
+sign up, get an API key immediately, no server to provision or maintain.
+It's the faster path if you just want your app on the internet right now,
+or if "running a VPS" isn't something you want to own.
+
+| | Self-host (this repo) | Hosted ([novarelynx.com](https://novarelynx.com)) |
+|---|---|---|
+| Setup time | `docker compose up` + your own DNS/TLS | Sign up, get an API key -- done |
+| Who maintains the server | You | NovaTeka LLC |
+| Cost | Your own VPS | Free tier available, paid plans for more bandwidth |
+| Control | Full -- it's your code, your box | Managed for you |
+
+Both use the exact same protocol -- `dashboard.py`/`tunnel_agent.py` from
+this repo work completely unmodified against either one, you just point
+the "Relay address" setting at a different host. Nothing about switching
+between them later requires changing your local app.
 
 ## License
 
