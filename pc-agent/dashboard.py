@@ -238,6 +238,10 @@ class AppSupervisor:
         else:
             cmd = [sys.executable, str(TUNNEL_AGENT), ws_url_for(relay_base), app["tunnel_token"], app["local_url"]]
         self.procs[name] = subprocess.Popen(cmd, cwd=str(AGENT_DIR), stdout=log_file, stderr=subprocess.STDOUT)
+        # Popen dups the fd for the child; the parent's handle is never stored
+        # anywhere and stop() has no way to close it later, so every crash+
+        # auto-restart cycle leaked one open file handle permanently.
+        log_file.close()
 
     def stop(self, name: str) -> None:
         self.want_running[name] = False
@@ -263,7 +267,14 @@ class AppSupervisor:
                         continue
                     app = cfg.get("apps", {}).get(name)
                     if app:
-                        self._spawn(name, app, cfg.get("relay_base", DEFAULT_RELAY_BASE))
+                        try:
+                            self._spawn(name, app, cfg.get("relay_base", DEFAULT_RELAY_BASE))
+                        except Exception as e:
+                            # An uncaught exception here (e.g. missing tunnel_agent
+                            # binary) used to kill this whole loop permanently --
+                            # not just that one app, every app stops auto-restarting
+                            # for the rest of the process's life. Log and keep going.
+                            print(f"[supervisor] failed to spawn {name!r}: {e}")
 
 
 _STYLE = """
